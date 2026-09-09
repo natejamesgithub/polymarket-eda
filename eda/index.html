@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Explore Polymarket trading activity." />
+    <title>Polymarket Trading Trends</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <strong>EDA</strong>
+      <a
+        href="https://drive.google.com/file/d/1wEvzJe5wpAbR4YxQTr3ses-RUnC_lfgw/view?pli=1"
+        target="_blank"
+        rel="noopener noreferrer"
+        >data.parquet</a
+      >
+    </header>
+    <main>
+      <h1>Polymarket Trading Trends</h1>
+      <p>Trader activity overview · medians are approximate</p>
+      <dl class="metrics" aria-label="Summary metrics">
+        <div>
+          <dt>Trader records</dt>
+          <dd aria-label="Not available">—</dd>
+        </div>
+        <div>
+          <dt>Unique traders</dt>
+          <dd aria-label="Not available">—</dd>
+        </div>
+        <div>
+          <dt>Median trader volume</dt>
+          <dd aria-label="Not available">—</dd>
+        </div>
+        <div>
+          <dt>Median transactions</dt>
+          <dd aria-label="Not available">—</dd>
+        </div>
+      </dl>
+      <section aria-labelledby="volume-title">
+        <h2 id="volume-title">Trader labels</h2>
+        <div id="chart" class="empty" aria-live="polite">
+          <p>Data has not been loaded yet.</p>
+        </div>
+      </section>
+    </main>
+    <script src="app.js" defer></script>
+  </body>
+</html>
