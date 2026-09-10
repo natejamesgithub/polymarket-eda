@@ -1,6 +1,7 @@
 """Converts the local Parquet file into a small dashboard summary."""
 import json
 import math
+import random
 from pathlib import Path
 
 import pyarrow.compute as pc
@@ -129,6 +130,49 @@ for column, label in METRICS.items():
 
 (ROOT / "data/distributions.json").write_text(
     json.dumps(distributions, allow_nan=False),
+    encoding="utf-8",
+)
+
+comparison_source = pq.read_table(
+    ROOT / "data/data.parquet",
+    columns=["trader", "trader_volume", "trader_pnl", "trader_label"],
+)
+
+valid_indices = []
+
+for index, (volume, pnl) in enumerate(zip(
+    comparison_source["trader_volume"].to_pylist(),
+    comparison_source["trader_pnl"].to_pylist(),
+)):
+    if (
+        volume is not None
+        and pnl is not None
+        and math.isfinite(volume)
+        and math.isfinite(pnl)
+        and volume >= 0
+    ):
+        valid_indices.append(index)
+
+sample_indices = random.Random(42).sample(
+    valid_indices, min(5000, len(valid_indices))
+)
+
+points = [
+    {
+        "trader": row["trader"] or "Unknown",
+        "volume": row["trader_volume"],
+        "pnl": row["trader_pnl"],
+        "label": row["trader_label"] or "Unlabeled",
+    }
+    for row in comparison_source.take(sample_indices).to_pylist()
+]
+
+(ROOT / "data/comparison.json").write_text(
+    json.dumps({
+        "total": comparison_source.num_rows,
+        "eligible": len(valid_indices),
+        "points": points,
+    }, allow_nan=False),
     encoding="utf-8",
 )
 

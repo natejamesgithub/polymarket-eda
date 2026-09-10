@@ -182,3 +182,68 @@ header a:focus-visible {
 #distribution-axis {
   font-size: .875rem;
 }
+
+#comparison-min {
+  width: 9rem;
+  padding: .6rem;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  font: inherit;
+}
+
+#comparison-canvas {
+  display: block;
+  width: 100%;
+  height: 440px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+.comparison-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.comparison-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.comparison-legend i {
+  width: .75rem;
+  height: .75rem;
+  border-radius: 50%;
+}
+
+#comparison-detail {
+  min-height: 3rem;
+  overflow-wrap: anywhere;
+}
+
+.comparison-table {
+  max-height: 360px;
+  overflow: auto;
+  margin-top: 1rem;
+}
+
+.comparison-table table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: .75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.comparison-table th {
+  position: sticky;
+  top: 0;
+  background: var(--panel);
+}

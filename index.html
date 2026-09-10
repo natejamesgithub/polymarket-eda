@@ -71,7 +71,56 @@
         <div id="distribution-chart"></div>
         <p id="distribution-axis"></p>
       </section>
+
+      <section class="explorer" aria-labelledby="comparison-title">
+        <h2 id="comparison-title">Trader comparison</h2>
+        <div class="explorer-controls">
+          <label>
+            Trader label
+            <select id="comparison-label">
+              <option value="">All labels</option>
+            </select>
+          </label>
+          <label>
+            Minimum volume
+            <input id="comparison-min" type="number" min="0" value="0" />
+          </label>
+          <label>
+            <input id="comparison-log" type="checkbox" checked />
+            Signed-log axes
+          </label>
+        </div>
+        <p id="comparison-status" role="status">Loading traders…</p>
+        <div id="comparison-legend" class="comparison-legend"></div>
+        <canvas
+          id="comparison-canvas"
+          role="img"
+          aria-label="Trader volume versus P&L scatterplot"
+          aria-describedby="comparison-status"
+        ></canvas>
+        <p id="comparison-detail">
+          Hover over or tap a point to inspect a trader.
+        </p>
+        <details>
+          <summary>View plotted traders as a table</summary>
+          <div class="comparison-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Trader</th>
+                  <th>Label</th>
+                  <th>Volume</th>
+                  <th>P&amp;L</th>
+                </tr>
+              </thead>
+              <tbody id="comparison-rows"></tbody>
+            </table>
+          </div>
+        </details>
+      </section>
+
     </main>
     <script src="app.js" defer></script>
+    <script src="comparison.js" defer></script>
   </body>
 </html>
