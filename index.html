@@ -20,6 +20,7 @@
     <main>
       <h1>Polymarket Trading Trends</h1>
       <p>Trader activity overview · medians are approximate</p>
+
       <dl class="metrics" aria-label="Summary metrics">
         <div>
           <dt>Trader records</dt>
@@ -38,11 +39,37 @@
           <dd aria-label="Not available">—</dd>
         </div>
       </dl>
+
       <section aria-labelledby="volume-title">
         <h2 id="volume-title">Trader labels</h2>
         <div id="chart" class="empty" aria-live="polite">
           <p>Data has not been loaded yet.</p>
         </div>
+      </section>
+
+      <section class="explorer" aria-labelledby="distribution-title">
+        <h2 id="distribution-title">Distribution explorer</h2>
+        <div class="explorer-controls">
+          <label>
+            Metric
+            <select id="distribution-metric">
+              <option value="trader_volume">Trader volume</option>
+              <option value="trader_pnl">Trader P&amp;L</option>
+              <option value="transaction_count">Transaction count</option>
+            </select>
+          </label>
+          <label>
+            View
+            <select id="distribution-view">
+              <option value="log">All values — signed log</option>
+              <option value="central">Middle 98% — linear</option>
+              <option value="linear">All values — linear</option>
+            </select>
+          </label>
+        </div>
+        <p id="distribution-status" role="status">Loading distributions…</p>
+        <div id="distribution-chart"></div>
+        <p id="distribution-axis"></p>
       </section>
     </main>
     <script src="app.js" defer></script>
