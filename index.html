@@ -45,6 +45,11 @@
         <div id="chart" class="empty" aria-live="polite">
           <p>Data has not been loaded yet.</p>
         </div>
+        <aside class="findings" aria-label="Reading the overview">
+          <h3>Reading the overview</h3>
+          <p>The snapshot contains <strong>604,578 unique traders</strong>. The source label “bad” is the largest group (198,535); “sharp” is the smallest (99,772).</p>
+          <p class="findings-note">Labels come from the dataset; their definitions have not been verified. Summary cards use approximate medians, so the displayed 6.6 transactions differs from the exact median of 7.</p>
+        </aside>
       </section>
 
       <section class="explorer" aria-labelledby="distribution-title">
@@ -70,6 +75,15 @@
         <p id="distribution-status" role="status">Loading distributions…</p>
         <div id="distribution-chart"></div>
         <p id="distribution-axis"></p>
+        <aside class="findings" aria-label="What the distributions show">
+          <h3>What the distributions show</h3>
+          <div class="findings-grid">
+            <div><h4>Volume has a long upper tail</h4><p>The exact median is <strong>148.35</strong>; the 99th percentile is <strong>113,129.16</strong>. A small number of large values stretch the linear scale.</p></div>
+            <div><h4>Most traders have limited activity</h4><p>The exact median is <strong>7 transactions</strong>. The 90th percentile is 41 and the 99th is 383, showing how unusual very active traders are.</p></div>
+            <div><h4>Positive P&amp;L is a minority outcome</h4><p><strong>43.70%</strong> have P&amp;L above zero. The exact median is approximately <strong>−0.0534</strong>, with both positive and negative extremes.</p></div>
+          </div>
+          <p class="findings-note">These are full-snapshot findings for all three metrics, independent of the selected view. Signed log retains zero and negative values; the middle-98% view excludes tails. Equal-width log bins cover unequal ranges in the original units.</p>
+        </aside>
       </section>
 
       <section class="explorer" aria-labelledby="comparison-title">
@@ -117,6 +131,12 @@
             </table>
           </div>
         </details>
+        <aside class="findings" aria-label="How to read the comparison">
+          <h3>How to read the comparison</h3>
+          <p>In the unfiltered <strong>5,000-trader sample</strong>, both gains and losses extend farther from zero at higher volumes. More activity does not by itself identify a profitable trader.</p>
+          <p><strong>43.74%</strong> of the unfiltered sample have positive P&amp;L, compared with 43.70% in the full dataset. This agreement on one measure does not establish that rare traders or extremes are represented.</p>
+          <p class="findings-note">Filters apply to the sample. Color separation may reflect how the source assigned labels; it is not independent evidence of skill. The plot shows an association, not causation or return on invested capital.</p>
+        </aside>
       </section>
 
       <section class="explorer" aria-labelledby="specialization-title">
@@ -159,8 +179,16 @@
           Positive P&amp;L means total trader P&amp;L above zero, not trade win
           rate. Volume and P&amp;L use the dataset’s original units.
         </p>
+        <aside class="findings" aria-label="Specialization depends on the activity threshold">
+          <h3>Specialization depends on the activity threshold</h3>
+          <div class="findings-grid findings-grid-two">
+            <div><h4>At least 10 transactions</h4><p>Among <strong>238,997 traders</strong>, diversified traders have a higher positive-P&amp;L share than specialists: <strong>40.4% versus 37.9%</strong>. Specialists have higher median volume: 1,328.13 versus 452.25.</p></div>
+            <div><h4>At least 100 transactions</h4><p>Among <strong>21,323 traders</strong>, positive-P&amp;L shares are close: <strong>41.0% diversified versus 41.3% specialist</strong>. All three groups have negative median P&amp;L.</p></div>
+          </div>
+          <p class="findings-note">These fixed comparisons describe the named thresholds, not necessarily the current selection. “Specialist” means at least 75% of normalized topic share in one topic. Different group sizes and activity profiles prevent attributing the differences to 
       </section>
 
+      <p class="findings-footnote">Findings describe the supplied 604,578-trader snapshot and should be reviewed when the dataset changes. Volume and P&amp;L retain source units; observation periods and source methodology have not been independently verified.</p>
     </main>
     <script src="app.js" defer></script>
     <script src="comparison.js" defer></script>

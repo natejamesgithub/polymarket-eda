@@ -291,3 +291,27 @@ header a:focus-visible {
 .pnl-negative {
   color: #ff637c;
 }
+
+.findings {
+  margin-top: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--green);
+  background: var(--panel);
+}
+.findings h3 {
+  margin: 0 0 1rem;
+  color: var(--text);
+  font-size: 1.125rem;
+}
+.findings h4 { margin: 0 0 .5rem; font-size: 1rem; }
+.findings p { margin: .5rem 0 0; line-height: 1.65; }
+.findings strong { color: var(--text); }
+.findings-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+.findings-grid-two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.findings .findings-note { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: .875rem; }
+.findings-footnote { margin-top: 3rem; font-size: .875rem; }
+@media (max-width: 800px) {
+  .findings-grid { grid-template-columns: 1fr; }
+  .findings { padding: 1rem; }
+}
