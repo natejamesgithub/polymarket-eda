@@ -2,7 +2,7 @@
 
 A lightweight dashboard for exploring Polymarket trader metrics and label distributions.
 
-[Live GitHub Page](https://natejamesgithub.github.io/polymarket-eda/)
+[`Live GitHub Page`](https://natejamesgithub.github.io/polymarket-eda/)
 
 ## Requirements
 
