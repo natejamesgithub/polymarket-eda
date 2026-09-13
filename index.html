@@ -119,8 +119,51 @@
         </details>
       </section>
 
+      <section class="explorer" aria-labelledby="specialization-title">
+        <h2 id="specialization-title">Topic specialization</h2>
+        <p>
+          Compare traders by their largest normalized topic share. Group
+          differences describe associations, not causation.
+        </p>
+        <div class="explorer-controls">
+          <label>
+            Minimum transactions
+            <select id="specialization-min">
+              <option value="0">All activity levels</option>
+              <option value="10" selected>10 transactions</option>
+              <option value="100">100 transactions</option>
+            </select>
+          </label>
+        </div>
+        <p id="specialization-status" role="status">Loading topic groups…</p>
+        <div class="specialization-table">
+          <table>
+            <caption>
+              Concentration groups — share of traders with positive P&amp;L
+              shown as a bar
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Largest topic share</th>
+                <th scope="col">Traders</th>
+                <th scope="col">Median P&amp;L</th>
+                <th scope="col">Positive P&amp;L</th>
+                <th scope="col">Median volume</th>
+                <th scope="col">Median transactions</th>
+              </tr>
+            </thead>
+            <tbody id="specialization-rows"></tbody>
+          </table>
+        </div>
+        <p>
+          Positive P&amp;L means total trader P&amp;L above zero, not trade win
+          rate. Volume and P&amp;L use the dataset’s original units.
+        </p>
+      </section>
+
     </main>
     <script src="app.js" defer></script>
     <script src="comparison.js" defer></script>
+    <script src="specialization.js" defer></script>
   </body>
 </html>

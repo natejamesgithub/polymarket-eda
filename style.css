@@ -247,3 +247,47 @@ header a:focus-visible {
   top: 0;
   background: var(--panel);
 }
+
+.specialization-table {
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+
+.specialization-table table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--panel);
+}
+
+.specialization-table caption {
+  padding: 1rem 0;
+  color: var(--muted);
+  text-align: left;
+}
+
+.specialization-table th,
+.specialization-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--line);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.specialization-table th:first-child {
+  text-align: left;
+}
+
+.specialization-table meter {
+  display: inline-block;
+  width: 6rem;
+  margin-right: .75rem;
+  vertical-align: middle;
+}
+
+.pnl-positive {
+  color: var(--green);
+}
+
+.pnl-negative {
+  color: #ff637c;
+}

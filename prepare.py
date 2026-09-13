@@ -3,6 +3,7 @@ import json
 import math
 import random
 from pathlib import Path
+from statistics import median
 
 import pyarrow.compute as pc
 import pyarrow.parquet as pq
@@ -173,6 +174,99 @@ points = [
         "eligible": len(valid_indices),
         "points": points,
     }, allow_nan=False),
+    encoding="utf-8",
+)
+
+parquet = pq.ParquetFile(ROOT / "data/data.parquet")
+topic_columns = [
+    name for name in parquet.schema_arrow.names
+    if name.startswith("topic_")
+]
+
+if not topic_columns:
+    raise ValueError("No topic-share columns found.")
+
+thresholds = [0, 10, 100]
+group_names = [
+    "Diversified (<50%)",
+    "Focused (50–75%)",
+    "Specialist (≥75%)",
+]
+
+groups = {
+    threshold: [[] for _ in group_names]
+    for threshold in thresholds
+}
+excluded = 0
+
+columns = topic_columns + [
+    "trader_pnl", "trader_volume", "transaction_count"
+]
+
+for batch in parquet.iter_batches(batch_size=10000, columns=columns):
+    for row in batch.to_pylist():
+        shares = [row[name] for name in topic_columns]
+        metrics = [
+            row["trader_pnl"],
+            row["trader_volume"],
+            row["transaction_count"],
+        ]
+
+        if (
+            any(v is None or not math.isfinite(v) for v in shares + metrics)
+            or any(v < 0 for v in shares)
+            or row["trader_volume"] < 0
+            or row["transaction_count"] < 0
+        ):
+            excluded += 1
+            continue
+
+        total_share = sum(shares)
+        if not math.isfinite(total_share) or total_share <= 0:
+            excluded += 1
+            continue
+
+        concentration = max(shares) / total_share
+        group = 0 if concentration < 0.5 else (
+            1 if concentration < 0.75 else 2
+        )
+
+        for threshold in thresholds:
+            if row["transaction_count"] >= threshold:
+                groups[threshold][group].append(metrics)
+
+
+def summarize_group(name, records):
+    return {
+        "group": name,
+        "count": len(records),
+        "medianPnl": median(r[0] for r in records) if records else None,
+        "positivePnlShare": (
+            sum(r[0] > 0 for r in records) / len(records)
+            if records else None
+        ),
+        "medianVolume": median(r[1] for r in records) if records else None,
+        "medianTransactions": (
+            median(r[2] for r in records) if records else None
+        ),
+    }
+
+
+specialization = {
+    "total": parquet.metadata.num_rows,
+    "excluded": excluded,
+    "topicCount": len(topic_columns),
+    "cohorts": {
+        str(threshold): [
+            summarize_group(name, records)
+            for name, records in zip(group_names, groups[threshold])
+        ]
+        for threshold in thresholds
+    },
+}
+
+(ROOT / "data/specialization.json").write_text(
+    json.dumps(specialization, allow_nan=False),
     encoding="utf-8",
 )
 
