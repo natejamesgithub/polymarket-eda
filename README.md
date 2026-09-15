@@ -1,4 +1,4 @@
-# Polymarket EDA
+# Polymarket Exploratory Data Analysis
 
 A lightweight dashboard for exploring Polymarket trader metrics and label distributions.
 
